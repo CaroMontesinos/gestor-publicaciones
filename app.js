@@ -3,42 +3,515 @@
 const API = "https://jsonplaceholder.typicode.com/posts";
 // JSONPlaceholder entrega texto de relleno. Estos textos de ejemplo en español
 // se asignan por ID después del GET y se editan mediante el PUT original.
-const temas = [
-    ["Estudio", "el hábito de estudiar", "revisa tus apuntes durante quince minutos"],
-    ["Lectura", "la lectura diaria", "elige un cuento breve y anota lo que más te llamó la atención"],
-    ["Huerto", "el cuidado de un huerto pequeño", "observa la luz que recibe cada maceta antes de regar"],
-    ["Cocina", "la planificación de comidas", "elige una receta con los ingredientes que ya tienes"],
-    ["Actividad física", "el movimiento diario", "elige una caminata corta que puedas incorporar a tu rutina"],
-    ["Fotografía", "la fotografía cotidiana", "fotografía el mismo objeto con luz de mañana y de tarde"],
-    ["Escritura", "la escritura personal", "describe una escena cotidiana en cinco líneas"],
-    ["Reciclaje", "la separación de residuos", "revisa qué materiales recibe el punto limpio de tu comuna"],
-    ["Organización", "el orden en casa", "clasifica el contenido de un cajón en grupos según su uso"],
-    ["Ahorro", "el registro de gastos", "anota tus compras de la semana en una lista sencilla"]
-];
-
-const enfoques = [
-    ["Primeros pasos", "Empieza por una acción que puedas realizar hoy."],
-    ["Cómo preparar un espacio", "Deja a mano lo necesario y despeja la superficie que usarás."],
-    ["Una meta para esta semana", "Define un objetivo pequeño y fija un día para revisar cómo te fue."],
-    ["Qué anotar en un registro", "Apunta la fecha, lo que hiciste y lo que cambiarías la próxima vez."],
-    ["Cómo retomar la rutina", "Si dejaste pasar algunos días, reserva un momento breve para volver a empezar."],
-    ["Una práctica para compartir", "Invita a otra persona a probar la actividad contigo y comparen sus experiencias."],
-    ["Cómo reconocer los avances", "Compara lo que puedes hacer hoy con lo que te costaba al principio."],
-    ["Qué hacer cuando falta tiempo", "Reduce la actividad a una parte que puedas terminar en pocos minutos."],
-    ["Cómo probar una variación", "Cambia un detalle de la actividad y observa si el resultado te sirve más."],
-    ["Una revisión de fin de mes", "Revisa qué actividades repetiste y conserva las que te resultaron más fáciles de sostener."]
+const publicacionesEnEspanol = [
+    [
+        "Estudio",
+        "Repasa con preguntas en vez de releer",
+        "Cierra el cuaderno y responde tres preguntas sobre la materia. Abre tus apuntes para comprobar en qué te equivocaste."
+    ],
+    [
+        "Lectura",
+        "Elige tu próximo libro en diez minutos",
+        "Lee la primera página de tres libros. Quédate con el que te deje con ganas de saber qué ocurre después."
+    ],
+    [
+        "Huerto",
+        "Cultiva albahaca en una maceta",
+        "Busca un lugar luminoso y una maceta con drenaje. Toca la tierra antes de regar para saber si todavía está húmeda."
+    ],
+    [
+        "Cocina",
+        "Prepara un almuerzo con lo que tienes",
+        "Revisa la despensa y el refrigerador. Elige una base, como arroz o legumbres, y combínala con las verduras que tengas."
+    ],
+    [
+        "Actividad física",
+        "Incorpora una caminata a tu jornada",
+        "Elige un trayecto que ya haces con frecuencia. Si te resulta cómodo, recorre a pie un tramo y ajusta la distancia a tu ritmo."
+    ],
+    [
+        "Fotografía",
+        "Aprovecha la luz de una ventana",
+        "Coloca un objeto cerca de la ventana y muévelo hasta que la sombra tenga el contraste que buscas."
+    ],
+    [
+        "Escritura",
+        "Describe una escena en cinco líneas",
+        "Elige un lugar conocido y menciona un sonido, un objeto y un movimiento. Esos detalles ayudan al lector a imaginar la escena."
+    ],
+    [
+        "Reciclaje",
+        "Prepara tus envases para llevarlos al punto limpio",
+        "Consulta qué recibe el punto limpio de tu comuna. Separa los envases aceptados y entrégalos según las indicaciones del lugar."
+    ],
+    [
+        "Organización",
+        "Ordena el cajón que más usas",
+        "Vacía el cajón y agrupa los objetos por función. Deja delante lo que necesitas a diario."
+    ],
+    [
+        "Ahorro",
+        "Registra tus gastos pequeños",
+        "Anota las compras menores de la semana. Al agruparlas por tipo, podrás ver cuáles se repiten con mayor frecuencia."
+    ],
+    [
+        "Estudio",
+        "Divide un trabajo largo en tareas breves",
+        "Divide un trabajo largo en tareas breves. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Lectura",
+        "Lee un cuento durante tu pausa",
+        "Lee un cuento durante tu pausa. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Huerto",
+        "Elige macetas que drenen bien",
+        "Elige macetas que drenen bien. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Cocina",
+        "Planea tres cenas con una lista corta",
+        "Planea tres cenas con una lista corta. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Actividad física",
+        "Encuentra una ruta que disfrutes",
+        "Encuentra una ruta que disfrutes. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Fotografía",
+        "Retrata un objeto desde tres ángulos",
+        "Retrata un objeto desde tres ángulos. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Escritura",
+        "Abre un relato con una acción concreta",
+        "Abre un relato con una acción concreta. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Reciclaje",
+        "Reconoce los símbolos de los envases",
+        "Reconoce los símbolos de los envases. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Organización",
+        "Asigna un lugar fijo para las llaves",
+        "Asigna un lugar fijo para las llaves. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Ahorro",
+        "Revisa las suscripciones que utilizas",
+        "Revisa las suscripciones que utilizas. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Estudio",
+        "Explica una idea con tus propias palabras",
+        "Explica una idea con tus propias palabras. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Lectura",
+        "Compara dos finales de novela",
+        "Compara dos finales de novela. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Huerto",
+        "Reconoce cuándo la tierra necesita agua",
+        "Reconoce cuándo la tierra necesita agua. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Cocina",
+        "Prepara una ensalada con contrastes",
+        "Prepara una ensalada con contrastes. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Actividad física",
+        "Haz una pausa activa entre tareas",
+        "Haz una pausa activa entre tareas. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Fotografía",
+        "Compón la imagen con espacio libre",
+        "Compón la imagen con espacio libre. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Escritura",
+        "Escribe un diálogo entre dos voces",
+        "Escribe un diálogo entre dos voces. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Reciclaje",
+        "Separa los papeles secos de los húmedos",
+        "Separa los papeles secos de los húmedos. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Organización",
+        "Organiza los cables del escritorio",
+        "Organiza los cables del escritorio. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Ahorro",
+        "Define una meta para el mes",
+        "Define una meta para el mes. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Estudio",
+        "Organiza tu semana según las fechas de entrega",
+        "Organiza tu semana según las fechas de entrega. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Lectura",
+        "Anota una frase para recordar el libro",
+        "Anota una frase para recordar el libro. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Huerto",
+        "Siembra rabanitos en un recipiente",
+        "Siembra rabanitos en un recipiente. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Cocina",
+        "Aprovecha el pan del día anterior",
+        "Aprovecha el pan del día anterior. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Actividad física",
+        "Agenda una caminata con compañía",
+        "Agenda una caminata con compañía. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Fotografía",
+        "Compara las sombras de mañana y tarde",
+        "Compara las sombras de mañana y tarde. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Escritura",
+        "Revisa los verbos de tu primer borrador",
+        "Revisa los verbos de tu primer borrador. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Reciclaje",
+        "Organiza un lugar para separar residuos",
+        "Organiza un lugar para separar residuos. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Organización",
+        "Clasifica los documentos importantes",
+        "Clasifica los documentos importantes. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Ahorro",
+        "Distingue gastos fijos y variables",
+        "Distingue gastos fijos y variables. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Estudio",
+        "Prepara un mapa de conceptos antes de la prueba",
+        "Prepara un mapa de conceptos antes de la prueba. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Lectura",
+        "Prueba una novela fuera de tu género habitual",
+        "Prueba una novela fuera de tu género habitual. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Huerto",
+        "Cambia una planta a una maceta más amplia",
+        "Cambia una planta a una maceta más amplia. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Cocina",
+        "Combina legumbres con verduras de temporada",
+        "Combina legumbres con verduras de temporada. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Actividad física",
+        "Registra cómo te sientes al moverte",
+        "Registra cómo te sientes al moverte. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Fotografía",
+        "Prueba un encuadre a la altura del suelo",
+        "Prueba un encuadre a la altura del suelo. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Escritura",
+        "Recorta palabras de una descripción",
+        "Recorta palabras de una descripción. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Reciclaje",
+        "Busca un punto de entrega para pilas usadas",
+        "Busca un punto de entrega para pilas usadas. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Organización",
+        "Haz espacio para la ropa de temporada",
+        "Haz espacio para la ropa de temporada. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Ahorro",
+        "Compara precios por unidad",
+        "Compara precios por unidad. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Estudio",
+        "Haz tarjetas con errores frecuentes",
+        "Haz tarjetas con errores frecuentes. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Lectura",
+        "Comenta un capítulo con otra persona",
+        "Comenta un capítulo con otra persona. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Huerto",
+        "Ubica cada planta según la luz que necesita",
+        "Ubica cada planta según la luz que necesita. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Cocina",
+        "Usa hierbas para cambiar un plato habitual",
+        "Usa hierbas para cambiar un plato habitual. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Actividad física",
+        "Alterna trayectos cortos en la semana",
+        "Alterna trayectos cortos en la semana. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Fotografía",
+        "Encuentra un fondo que destaque el sujeto",
+        "Encuentra un fondo que destaque el sujeto. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Escritura",
+        "Cambia el punto de vista de tu escena",
+        "Cambia el punto de vista de tu escena. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Reciclaje",
+        "Identifica qué tapas recibe tu punto limpio",
+        "Identifica qué tapas recibe tu punto limpio. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Organización",
+        "Ordena la entrada de tu casa",
+        "Ordena la entrada de tu casa. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Ahorro",
+        "Planifica una compra con anticipación",
+        "Planifica una compra con anticipación. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Estudio",
+        "Reparte el repaso en varios días",
+        "Reparte el repaso en varios días. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Lectura",
+        "Crea una lista de autores por descubrir",
+        "Crea una lista de autores por descubrir. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Huerto",
+        "Etiqueta tus siembras con la fecha",
+        "Etiqueta tus siembras con la fecha. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Cocina",
+        "Arma una despensa para resolver cenas rápidas",
+        "Arma una despensa para resolver cenas rápidas. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Actividad física",
+        "Elige un horario cómodo para salir",
+        "Elige un horario cómodo para salir. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Fotografía",
+        "Cuenta una historia en tres imágenes",
+        "Cuenta una historia en tres imágenes. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Escritura",
+        "Convierte un recuerdo en una escena",
+        "Convierte un recuerdo en una escena. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Reciclaje",
+        "Planifica la entrega de aparatos en desuso",
+        "Planifica la entrega de aparatos en desuso. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Organización",
+        "Simplifica la mesa de trabajo",
+        "Simplifica la mesa de trabajo. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Ahorro",
+        "Aparta dinero para un gasto anual",
+        "Aparta dinero para un gasto anual. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Estudio",
+        "Prepara preguntas para tu grupo de estudio",
+        "Prepara preguntas para tu grupo de estudio. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Lectura",
+        "Explora el catálogo de tu biblioteca",
+        "Explora el catálogo de tu biblioteca. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Huerto",
+        "Observa qué insectos visitan tus plantas",
+        "Observa qué insectos visitan tus plantas. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Cocina",
+        "Prueba una salsa sencilla para las verduras",
+        "Prueba una salsa sencilla para las verduras. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Actividad física",
+        "Busca un espacio cubierto para días de lluvia",
+        "Busca un espacio cubierto para días de lluvia. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Fotografía",
+        "Fotografía texturas del barrio",
+        "Fotografía texturas del barrio. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Escritura",
+        "Dale a cada párrafo una idea central",
+        "Dale a cada párrafo una idea central. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Reciclaje",
+        "Clasifica los envases después de una reunión",
+        "Clasifica los envases después de una reunión. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Organización",
+        "Reúne los útiles que usas para estudiar",
+        "Reúne los útiles que usas para estudiar. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Ahorro",
+        "Revisa tus compras antes de repetirlas",
+        "Revisa tus compras antes de repetirlas. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Estudio",
+        "Cierra cada sesión con un resumen breve",
+        "Cierra cada sesión con un resumen breve. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Lectura",
+        "Identifica quién narra la historia",
+        "Identifica quién narra la historia. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Huerto",
+        "Dibuja un plano de tus macetas",
+        "Dibuja un plano de tus macetas. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Cocina",
+        "Diseña un menú semanal con ingredientes comunes",
+        "Diseña un menú semanal con ingredientes comunes. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Actividad física",
+        "Prueba un recorrido urbano con paradas",
+        "Prueba un recorrido urbano con paradas. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Fotografía",
+        "Guarda una serie con un tema en común",
+        "Guarda una serie con un tema en común. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Escritura",
+        "Lee en voz alta para revisar el ritmo",
+        "Lee en voz alta para revisar el ritmo. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Reciclaje",
+        "Reutiliza frascos para ordenar materiales",
+        "Reutiliza frascos para ordenar materiales. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Organización",
+        "Revisa los objetos que guardas por costumbre",
+        "Revisa los objetos que guardas por costumbre. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Ahorro",
+        "Anota los gastos imprevistos del mes",
+        "Anota los gastos imprevistos del mes. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Estudio",
+        "Identifica qué tema merece otro repaso",
+        "Identifica qué tema merece otro repaso. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Lectura",
+        "Recomienda un libro en tres frases",
+        "Recomienda un libro en tres frases. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Huerto",
+        "Anota qué plantas crecen mejor en tu balcón",
+        "Anota qué plantas crecen mejor en tu balcón. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Cocina",
+        "Adapta una receta al número de porciones",
+        "Adapta una receta al número de porciones. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Actividad física",
+        "Reconoce qué actividades disfrutas más",
+        "Reconoce qué actividades disfrutas más. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Fotografía",
+        "Selecciona las mejores imágenes de una salida",
+        "Selecciona las mejores imágenes de una salida. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Escritura",
+        "Prueba dos cierres para el mismo cuento",
+        "Prueba dos cierres para el mismo cuento. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ],
+    [
+        "Reciclaje",
+        "Crea una lista de puntos limpios de tu sector",
+        "Crea una lista de puntos limpios de tu sector. Prueba la idea en una sesión breve y registra qué te resultó más sencillo."
+    ],
+    [
+        "Organización",
+        "Prepara una rutina breve para ordenar al final del día",
+        "Prepara una rutina breve para ordenar al final del día. Anota el resultado y decide qué detalle conviene ajustar la próxima vez."
+    ],
+    [
+        "Ahorro",
+        "Ajusta tu presupuesto al cerrar el mes",
+        "Ajusta tu presupuesto al cerrar el mes. Define qué necesitas y anota una acción concreta que puedas hacer hoy."
+    ]
 ];
 
 function adaptarPublicacion(post) {
-    const posicion = post.id - 1;
-    const [categoria, tema, ejemplo] = temas[posicion % temas.length];
-    const [titulo, consejo] = enfoques[Math.floor(posicion / temas.length) % enfoques.length];
+    const ejemplo = publicacionesEnEspanol[post.id - 1];
+    if (!ejemplo) return post;
 
-    return {
-        ...post,
-        title: `${categoria}: ${titulo}`,
-        body: `Si quieres dedicar tiempo a ${tema}, prueba esta idea: ${ejemplo}. ${consejo}`
-    };
+    const [categoria, titulo, contenido] = ejemplo;
+    return { ...post, title: `${categoria}: ${titulo}`, body: contenido };
 }
 
 const cargar = document.querySelector("#cargar");
