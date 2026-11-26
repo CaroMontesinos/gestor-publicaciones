@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestor de publicaciones</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <main class="contenedor">
+        <header>
+            <h1>Gestor de publicaciones</h1>
+            <p>Consulta publicaciones, busca por título y simula una edición</p>
+            <button id="cargar" type="button">Cargar publicaciones</button>
+        </header>
+        <label for="buscar">Buscar por título:</label>
+        <input id="buscar" type="search" placeholder="Escribe una palabra" disabled>
+        <form id="editor" hidden>
+            <h2 id="encabezado-editor">Editar publicación</h2>
+            <fieldset>
+                <label for="titulo">Título</label>
+                <input id="titulo" required maxlength="180" aria-describedby="contador">
+                <p id="contador"></p>
+                <label for="cuerpo">Contenido</label>
+                <textarea id="cuerpo" rows="4" required></textarea>
+                <button type="submit">Guardar cambios</button>
+                <button id="cancelar" type="button">Cancelar</button>
+            </fieldset>
+        </form>
+        <p id="estado" role="status"></p>
+        <section id="lista" aria-label="Publicaciones"></section>
+    </main>
+</body>
+</html>
