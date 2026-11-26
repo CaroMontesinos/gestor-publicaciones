@@ -1,117 +1,218 @@
-* {
-    box-sizing: border-box;
+:root {
+    color-scheme: light;
+    --fondo: #f0f1f8;
+    --superficie: #fff;
+    --texto: #211627;
+    --titulo: #320d3d;
+    --secundario: #66566e;
+    --borde: #d0c6da;
+    --violeta: #60277e;
+    --accion: #7316a3;
 }
+
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    color: #243247;
-    background: #f7f8f2;
-    line-height: 1.5;
+    background: var(--fondo);
+    color: var(--texto);
+    font: 1rem/1.55 system-ui, sans-serif;
 }
 
 .contenedor {
-    width: 100%;
-    padding: 16px 8px 24px;
+    max-width: 1320px;
+    margin: auto;
+    padding: clamp(24px, 4vw, 44px) clamp(16px, 4vw, 48px) 64px;
 }
 
-header p {
-    margin: 18px 0 14px;
+.cabecera, .identidad {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
-h1 {
-    color: #183c65;
-    font-size: 2rem;
+.cabecera {
+    justify-content: space-between;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--borde);
 }
+
+.marca {
+    position: relative;
+    flex: 0 0 auto;
+    width: 64px;
+    height: 64px;
+    border-radius: 17px;
+    background: linear-gradient(145deg, #8f40ad, #632082);
+}
+
+.marca i {
+    position: absolute;
+    left: 21px;
+    top: 15px;
+    width: 22px;
+    height: 22px;
+    border: 2px solid white;
+    border-radius: 4px;
+    transform: rotate(45deg) skew(-8deg, -8deg);
+}
+
+.marca i:nth-child(2) { top: 22px; border-top-color: transparent; border-left-color: transparent; }
+.marca i:nth-child(3) { top: 29px; border-top-color: transparent; border-left-color: transparent; }
 
 h1, h2 {
     margin: 0;
-    line-height: 1.2;
+    color: var(--titulo);
+    line-height: 1.18;
     overflow-wrap: anywhere;
 }
 
-header + label {
-    margin-top: 16px;
+h1 {
+    font-size: clamp(1.65rem, 3.2vw, 2.7rem);
+    letter-spacing: -0.04em;
+}
+
+h2 {
+    font-size: 1.25rem;
+    letter-spacing: -0.025em;
+}
+
+.identidad p {
+    margin: 4px 0 0;
+    color: var(--secundario);
 }
 
 label {
     display: block;
-    margin: 12px 0 4px;
-    font-weight: bold;
+    margin-bottom: 6px;
+    color: var(--titulo);
+    font-weight: 700;
 }
 
-input, textarea, button {
-    font: inherit;
-    border-radius: 8px;
-    padding: 9px 12px;
+.busqueda { margin-top: 20px; }
+.campo-busqueda { position: relative; }
+
+.lupa {
+    position: absolute;
+    left: 17px;
+    top: 15px;
+    width: 15px;
+    height: 15px;
+    border: 2px solid var(--secundario);
+    border-radius: 50%;
+    pointer-events: none;
 }
+
+.lupa::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 2px;
+    background: var(--secundario);
+    transform: rotate(45deg);
+    transform-origin: left;
+    left: 10px;
+    top: 10px;
+}
+
+input, textarea, button { font: inherit; }
 
 input, textarea {
-    display: block;
     width: 100%;
-    color: inherit;
-    background: white;
-    border: 1px solid #a8b6c6;
+    min-height: 46px;
+    padding: 10px 14px;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    color: var(--texto);
+    background: var(--superficie);
 }
 
-textarea {
-    resize: vertical;
-}
+#buscar { padding-left: 44px; }
+input:disabled { background: #f7f5fa; }
+textarea { resize: vertical; }
 
 button {
-    border: 1px solid #17609b;
-    color: white;
-    background: #17609b;
+    min-height: 44px;
+    padding: 9px 16px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: var(--violeta);
+    color: #fff;
+    font-weight: 650;
     cursor: pointer;
 }
 
-button:hover:not(:disabled) {
-    background-color: #114b7a;
+button:hover:not(:disabled) { background: #4e1b67; }
+button:disabled { opacity: .55; cursor: default; }
+#cargar { flex: 0 0 auto; }
+#cargar span { margin-right: 5px; }
+
+:focus-visible { outline: 3px solid #8845a8; outline-offset: 3px; }
+
+#estado {
+    margin: 14px 0 20px;
+    color: var(--secundario);
 }
 
-button:disabled {
-    opacity: 0.6;
-    cursor: default;
+#estado[data-error="true"] { color: #9a2341; }
+
+#lista {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
 }
 
-:focus-visible {
-    outline: 3px solid #17609b;
-    outline-offset: 3px;
+.tarjeta, #editor {
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    padding: 20px;
 }
 
-.tarjeta, form {
-    background-color: white;
-    border-radius: 10px;
-    padding: 16px;
-    margin: 14px 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.tarjeta {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .tarjeta p {
+    margin: 10px 0 18px;
     white-space: pre-line;
     overflow-wrap: anywhere;
 }
 
-fieldset {
-    min-width: 0;
+.tarjeta button {
+    margin-top: auto;
     border: 0;
-    padding: 0;
-    margin: 0;
+    border-top: 1px solid var(--borde);
+    border-radius: 0;
+    padding: 10px 0 0;
+    text-align: left;
+    background: transparent;
+    color: var(--accion);
 }
 
-fieldset button {
-    margin-top: 12px;
+.tarjeta button::before { content: "✎"; margin-right: 8px; }
+.tarjeta button:hover:not(:disabled) { background: transparent; text-decoration: underline; }
+
+#editor { margin: 18px 0 0; }
+#editor label { margin-top: 14px; }
+#editor button { margin-top: 12px; }
+#cancelar { background: var(--superficie); border-color: var(--borde); color: var(--titulo); }
+#cancelar:hover:not(:disabled) { background: var(--fondo); }
+#contador { margin: 4px 0; color: var(--secundario); font-size: .875rem; }
+fieldset { min-width: 0; border: 0; padding: 0; margin: 0; }
+
+@media (max-width: 920px) {
+    #lista { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-#contador {
-    margin: 4px 0;
-    font-size: 0.9rem;
-}
-
-#estado[data-error="true"] {
-    color: #982536;
-}
-
-#estado:empty {
-    margin: 0;
+@media (max-width: 620px) {
+    .cabecera { align-items: flex-start; flex-direction: column; gap: 16px; }
+    .identidad { gap: 12px; }
+    .marca { width: 50px; height: 50px; border-radius: 13px; }
+    .marca i { left: 14px; top: 8px; }
+    .marca i:nth-child(2) { top: 15px; }
+    .marca i:nth-child(3) { top: 22px; }
+    #lista { grid-template-columns: minmax(0, 1fr); }
 }

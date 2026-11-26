@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gestor de publicaciones</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=violeta">
     <script src="app.js" defer></script>
 </head>
 <body>
     <main class="contenedor">
-        <header>
-            <h1>Gestor de publicaciones</h1>
-            <p>Consulta publicaciones, busca por título y simula una edición</p>
-            <button id="cargar" type="button">Cargar publicaciones</button>
+        <header class="cabecera">
+            <div class="identidad">
+                <span class="marca" aria-hidden="true"><i></i><i></i><i></i></span>
+                <div>
+                    <h1>Gestor de publicaciones</h1>
+                    <p>Consulta, busca y edita publicaciones.</p>
+                </div>
+            </div>
+            <button id="cargar" type="button"><span aria-hidden="true">⟳</span> Cargar publicaciones</button>
         </header>
-        <label for="buscar">Buscar por título:</label>
-        <input id="buscar" type="search" placeholder="Escribe una palabra" disabled>
+        <div class="busqueda">
+            <label for="buscar">Buscar por título</label>
+            <div class="campo-busqueda">
+                <span class="lupa" aria-hidden="true"></span>
+                <input id="buscar" type="search" placeholder="Escribe una palabra" disabled>
+            </div>
+        </div>
         <form id="editor" hidden>
             <h2 id="encabezado-editor">Editar publicación</h2>
             <fieldset>
@@ -28,7 +38,7 @@
                 <button id="cancelar" type="button">Cancelar</button>
             </fieldset>
         </form>
-        <p id="estado" role="status"></p>
+        <p id="estado" role="status">Pulsa «Cargar publicaciones» para comenzar.</p>
         <section id="lista" aria-label="Publicaciones"></section>
     </main>
 </body>
